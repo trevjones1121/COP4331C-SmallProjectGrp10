@@ -2,7 +2,7 @@
 
 	$inData = getRequestInfo();
 	
-    $userId = 0;
+    $Id = 0;
 	$firstName = "";
     $lastName = "";
     $email = "";
@@ -16,7 +16,7 @@
 	} 
 	else
 	{
-		$sql = "SELECT FirstName,LastName,Email,PhoneNumber,Address FROM Contacts where UserId=" . $inData["UserId"] . " ";
+		$sql = "SELECT FirstName,LastName,Email,PhoneNumber,Address FROM Contacts where Id=" . $inData["Id"] . " ";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
@@ -26,9 +26,9 @@
             $email = $row["Email"];
             $phone = $row["PhoneNumber"];
             $addr = $row["Address"];
-			$userId = $row["UserId"];
+			$Id = $row["Id"];
 			
-			returnWithInfo($firstName, $lastName, $email, $phone, $addr, $userid );
+			returnWithInfo($firstName, $lastName, $email, $phone, $addr, $Id );
 		}
 		else
 		{
@@ -50,13 +50,13 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"UserId":0,"FirstName":"","LastName":"","Email":"","PhoneNumber":"","Address":"","error":"' . $err . '"}';
+		$retValue = '{"Id":0,"FirstName":"","LastName":"","Email":"","PhoneNumber":"","Address":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"UserId":' . $id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName . '","Email":"' . $email . '","PhoneNumber":"' . $phone . '","Address":"' . $addr . '","error":""}';
+		$retValue = '{"Id":' . $Id . ',"FirstName":"' . $firstName . '","LastName":"' . $lastName . '","Email":"' . $email . '","PhoneNumber":"' . $phone . '","Address":"' . $addr . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
